@@ -1,0 +1,81 @@
+<div class="container rtl mt-4">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <img alt="{{user.KnownAs}}" src="{{user.photoURL}}" class="card-img-top img-thumbnail">
+                    <div class="card-body">
+                        <div>
+                            <strong>يقيم في :</strong>
+                            <p>{{user?.country}} ,{{user?.city}}</p>
+                        </div>
+                        <div>
+                            <strong>العمر :</strong>
+                            <p>{{user?.age}} </p>
+                        </div>
+                        <div>
+                            <strong>اخر ظهور :</strong>
+                            <p>{{user?.lastActive}} </p>
+                        </div>
+                        <div>
+                            <strong>مشترك منذ:</strong>
+                            <p>{{user?.created}} </p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn w-50 btn-success">إعجاب</button>
+                        <button type="button" class="btn w-50 btn-info">مراسلة</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                    <div class="tab-Panel">        
+                            <tabset class="member-tabset" >
+                                    <tab heading="أنا {{user.knownAs}}">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>أعرفك بنفسي</h4>
+                                            </div>
+                                            <div class="card-text mt-3 p-2">
+                                                <p>{{user.introduction}}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card mt-4">
+                                            <div class="card-header">
+                                                <h4>أبحث عن</h4>
+                                            </div>
+                                            <div class="card-text mt-3 p-2">
+                                                <p>{{user.lookingFor}}</p>
+                                            </div>
+                                        </div>
+                            
+                                        
+                                    </tab>
+                                
+                                    <tab heading="هواياتي">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>هواياتي</h4>
+                                            </div>
+                                            <div class="card-text mt-3 p-2">
+                                                <p>{{user.interests}}</p>
+                                            </div>
+                                        </div>
+                                    </tab>
+                                    <tab heading="البوم الصور">
+                                        <div class="my-3">
+                                            <h4 class="text-info"> البوم الصور</h4>
+                                            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+
+                                        </div>
+                                    </tab>
+                                    <tab heading="الرسائل">
+                                        <h4>الرسائل</h4>
+                                        <p>الرسائل قادمة</p>
+                                    </tab>
+                                
+                            </tabset>
+                    </div>
+            </div>
+        </div>
+</div>

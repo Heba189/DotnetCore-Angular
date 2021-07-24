@@ -1,0 +1,30 @@
+
+
+          <div class="card border-info" style="max-width: 20rem;">
+            <div class="card-header">
+              <img src="{{user.photoURL}}" class="card-img-top" alt="{{user.knownAs}}">
+              <ul dir="ltr" class="list-inline members-icons mb-0 mt-3 animate text-center">
+                <li class="list-inline-item">
+                  <button [routerLink]="['/members/',user.id]" class="btn btn-sm btn-outline-danger">
+                    <i class="fa fa-user"></i>
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button class="btn btn-sm btn-outline-danger">
+                    <i class="fa fa-heart"></i>
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button class="btn btn-sm btn-outline-danger">
+                    <i class="fa fa-envelope"></i>
+                  </button>
+                </li>
+          
+              </ul>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{user.knownAs}} - {{user.age}} </h4>
+              <h4 class="card-title">{{user.city}} - {{user.gender}} </h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>

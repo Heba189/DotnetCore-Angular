@@ -1,0 +1,43 @@
+<nav class="rtl navbar navbar-expand-md navbar-primary bg-dark justify-content-around d-flex">
+  <a  [routerLink]="['']" routerLinkActive="router-link-active"  style="margin-top:-10px;color:pink;
+font-family:ToyorAljanah;font-size:2.25rem;font-weight:bolder" class="navbar-brand"
+    href="#"><i class="fa fa-heart" aria-hidden="true"></i> زواج <i class="fa fa-heart" aria-hidden="true"></i></a>
+
+  <ul *ngIf="loggedIn()"  style="letter-spacing:1px;font-weight:bold;font-family:'JF Flat';font-size:1.2rem" class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active"  >الرئيسية </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active" >بحث</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/lists']" routerLinkActive="router-link-active" >تواصل</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active" >دردشة</a>
+    </li>
+    <!-- <li *ngIf="loggedIn()" class="nav-item">
+      <a class="nav-link">خروج</a>
+    </li> -->
+  </ul>
+  <div dropdown class="dropdown"*ngIf="loggedIn()" >
+    <a dropdownToggle  class="dropdown-toggle text-light nav-link px-2">
+    مرحبا بك
+    {{authService.decodedToken?.unique_name | titlecase}}
+    </a>
+  
+    <ul *dropdownMenu class="dropdown-menu mt-3" >
+      <li><a class="dropdown-item" > <i class="fa fa-user"></i>
+        ملفي الشخصي</a></li>
+      <div class="dropdown-divider"></div>
+      <li><a class="dropdown-item"  (click)="loggedout()"> <i class="fa fa-sign-out"> </i> تسجيل الخروج </a></li>
+     
+    </ul>
+  </div>
+  <form *ngIf="!loggedIn()"  (ngSubmit)="login()" #formLogin="ngForm"  class="form-inline my-2 my-lg-0">
+    <input  name="username" required [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="إسم المشترك">
+    <input name="password" required [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="كلمة السر">
+    <button [disabled]="!formLogin.valid" style="font-weight:bold;font-family:'JF Flat';font-size:1.0rem" class="btn btn-secondary my-2 my-sm-0" type="submit">تفضل
+      بالدخول</button>
+  </form>
+</nav>

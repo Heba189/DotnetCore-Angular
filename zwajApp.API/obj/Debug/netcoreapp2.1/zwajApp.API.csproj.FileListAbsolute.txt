@@ -1,0 +1,14 @@
+E:\dream\zwaj\zwajApp.API\bin\Debug\netcoreapp2.1\zwajApp.API.deps.json
+E:\dream\zwaj\zwajApp.API\bin\Debug\netcoreapp2.1\zwajApp.API.runtimeconfig.json
+E:\dream\zwaj\zwajApp.API\bin\Debug\netcoreapp2.1\zwajApp.API.runtimeconfig.dev.json
+E:\dream\zwaj\zwajApp.API\bin\Debug\netcoreapp2.1\zwajApp.API.dll
+E:\dream\zwaj\zwajApp.API\bin\Debug\netcoreapp2.1\zwajApp.API.pdb
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.csprojAssemblyReference.cache
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.csproj.CoreCompileInputs.cache
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.RazorAssemblyInfo.cache
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.RazorAssemblyInfo.cs
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.AssemblyInfoInputs.cache
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.AssemblyInfo.cs
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.RazorTargetAssemblyInfo.cache
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.dll
+E:\dream\zwaj\zwajApp.API\obj\Debug\netcoreapp2.1\zwajApp.API.pdb
