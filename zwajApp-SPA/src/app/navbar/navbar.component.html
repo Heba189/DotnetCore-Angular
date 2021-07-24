@@ -27,7 +27,7 @@ font-family:ToyorAljanah;font-size:2.25rem;font-weight:bolder" class="navbar-bra
     </a>
   
     <ul *dropdownMenu class="dropdown-menu mt-3" >
-      <li><a class="dropdown-item" > <i class="fa fa-user"></i>
+      <li><a class="dropdown-item" [routerLink]="['/member/edit']"> <i class="fa fa-user"></i>
         ملفي الشخصي</a></li>
       <div class="dropdown-divider"></div>
       <li><a class="dropdown-item"  (click)="loggedout()"> <i class="fa fa-sign-out"> </i> تسجيل الخروج </a></li>

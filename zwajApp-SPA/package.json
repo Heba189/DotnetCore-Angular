@@ -22,7 +22,7 @@
     "@angular/router": "^11.2.14",
     "@auth0/angular-jwt": "^5.0.2",
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "alertifyjs": "^1.13.1",
+    "alertifyjs": "^1.11.2",
     "bootstrap-v4-rtl": "^4.6.0-2",
     "bootswatch": "^5.0.2",
     "font-awesome": "^4.7.0",
