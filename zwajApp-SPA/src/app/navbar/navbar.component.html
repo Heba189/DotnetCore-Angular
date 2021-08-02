@@ -23,7 +23,8 @@ font-family:ToyorAljanah;font-size:2.25rem;font-weight:bolder" class="navbar-bra
   <div dropdown class="dropdown"*ngIf="loggedIn()" >
     <a dropdownToggle  class="dropdown-toggle text-light nav-link px-2">
     مرحبا بك
-    {{authService.decodedToken?.unique_name | titlecase}}
+    {{authService.decodedToken?.unique_name | titlecase}} 
+    
     </a>
   
     <ul *dropdownMenu class="dropdown-menu mt-3" >

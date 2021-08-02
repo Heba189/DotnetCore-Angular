@@ -24,6 +24,7 @@ export const appRoutes: Routes = [
            {path:'member/edit',component:MemberEditComponent,resolve:{
              useredit:MembersEditResolver
            }, canDeactivate:[PreventUnsavedChangesGuard]},
+           
             {path:'members/:id',component:MembersDetailsComponent,resolve:{
               user:MembersDetailsResolver
             }},

@@ -31,6 +31,8 @@ import { MembersListResolver } from './_resolvers/memberList.reslover';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MembersEditResolver } from './_resolvers/member-Edit.reslover';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -46,21 +48,23 @@ export function tokenGetter() {
       MessagesComponent,
       MemberCardComponent,
       MembersDetailsComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    FileUploadModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5000"],
-        disallowedRoutes: ["localhost:5000/api/auth"],
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: ["localhost:5001/api/auth"],
       },
     }),
     TabsModule.forRoot(),

@@ -24,4 +24,7 @@ baseUrl=environment.apiUrl+'users/';
     // return this.http.get<User>(this.baseUrl+id, httpOptions);
     return this.http.get<User>(this.baseUrl+id);
   }
+  updateUser(id:number,user:User){
+    return this.http.put(this.baseUrl+id,user);
+  }
 }

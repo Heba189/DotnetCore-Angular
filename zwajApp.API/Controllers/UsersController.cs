@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using zwajApp.API.Data;
 using zwajApp.API.Dtos;
+using System.Security.Claims;
+using System;
 
 namespace zwajApp.API.Controllers
 {
@@ -33,6 +35,20 @@ namespace zwajApp.API.Controllers
             var user =await _repo.GetUser(id);
             var userToReturn = _mapper.Map<UserForDetailsDto>(user);
             return Ok(userToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id,UserForUpdateDto userForUpdateDto)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            return Unauthorized();
+            var userFromRepo =await _repo.GetUser(id);
+            _mapper.Map(userForUpdateDto,userFromRepo);
+            if(await _repo.saveAll()){
+                return NoContent();
+            }
+
+            throw new Exception($"حدثت مشكلة في تعديل بيانات المشترك رقم {id}");
         }
 }
 }

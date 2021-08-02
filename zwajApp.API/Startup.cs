@@ -45,7 +45,9 @@ namespace zwajApp.API
             });
             
             services.AddCors();
+           
             services.AddAutoMapper();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettins"));
             services.AddTransient<TrialData>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IzwajRepository,ZwajRepository>();

@@ -1,19 +1,20 @@
 import { Photo } from "./photo";
 
-export interface User{
+export interface User {
     id:number;
     username:string;
-    Gender: string;
-    Age :number;
-    KnownAs :string;
-    Created :Date;
-    LastActive:Date;
-    PhotoURL:string;
-    City :string;
-    Country:string;
-    Interests?:string;
-    Introduction?:string;
-    LookingFor?:string;
-    Photos?:Photo[];
+    knownAs:string;
+    age:number;
+    gender:string;
+    created:Date;
+    lastActive:Date;
+    photoURL:string;
+    city:string;
+    country:string;
+    interests?:string;
+    introduction?:string;
+    lookingFor?:string;
+    photos?:Photo[];
 
+        
 }

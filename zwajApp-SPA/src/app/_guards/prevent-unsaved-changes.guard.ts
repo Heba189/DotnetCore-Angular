@@ -17,8 +17,8 @@ export class PreventUnsavedChangesGuard implements CanDeactivate<MemberEditCompo
 
     if(component.editForm.dirty) {
 
-     let confirm = await this.alertify.promisifyConfirm('إنتـبــه', 'تم تعديل البيانات الخاصة بك هل تود الإستمرار بدون حفظ البيانات');
-      if (confirm == 1) { this.x = true } else {
+      const confirm = await this.alertify.promisifyConfirm('إنتـبــه', 'تم تعديل البيانات الخاصة بك هل تود الإستمرار بدون حفظ البيانات');
+      if (confirm == ConfirmResult.Ok) { this.x = true } else {
         this.x = false;
       }
       
