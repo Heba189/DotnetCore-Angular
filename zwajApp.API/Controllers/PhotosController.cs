@@ -78,6 +78,54 @@ namespace zwajApp.API.Controllers
             
             return BadRequest("خطا ف اضافة الصورة");
     
-    }
-   }
+        }
+
+        [HttpPost("{id}/setMain")]
+        public async Task<IActionResult> SetMainPhoto(int userId,int id){
+             if(userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+               return Unauthorized(); 
+               var userFromRepo =await _repo.GetUser(userId);
+               if(!userFromRepo.Photos.Any(p => p.Id == id)) 
+               return Unauthorized(); 
+               var DesiredMainPhoto =await _repo.GetPhoto(id);
+               if(DesiredMainPhoto.IsMain)
+               return BadRequest("هذه هي الصورة الاساسية بالفعل");
+               var currentMainPhoto = await _repo.GetMainPhoto(userId);
+               currentMainPhoto.IsMain =false;
+               DesiredMainPhoto.IsMain =true;
+               if(await _repo.saveAll())
+                   return NoContent();
+                   return BadRequest("لا يمكن تعديل الصورة الاساسية");
+               
+        }
+        [HttpDelete("{id}")]
+            public async Task<IActionResult> DeletePhoto(int userId , int id){
+                    if(userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                    return Unauthorized(); 
+                    var userFromRepo =await _repo.GetUser(userId);
+                    if(!userFromRepo.Photos.Any(p => p.Id == id)) 
+                    return Unauthorized(); 
+                    var Photo =await _repo.GetPhoto(id);
+                    if(Photo.IsMain)
+                    return BadRequest("لا يمكن حذف الصورة الاساسية");
+                    if(Photo.PublicId != null){
+                        var deleteParams = new DeletionParams(Photo.PublicId);
+                        var result = this._cloudinary.Destroy(deleteParams);
+                        if(result.Result == "ok"){
+                            _repo.Delete(Photo);
+                        }
+                    };
+                   if(Photo.PublicId == null){
+                        _repo.Delete(Photo);
+                    }
+                    if(await _repo.saveAll())
+                    return Ok();
+                    return BadRequest("فشل حذف الصورة");
+            }
+
+       }
+      
+
+    
+
 }

@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="card">
-                <img alt="{{user.knownAs}}" src="{{user.photoURL}}" class="card-img-top img-thumbnail">
+                <img alt="{{user.knownAs}}" src="{{photoUrl}}" class="card-img-top img-thumbnail">
                 <div class="card-body">
                     <div class="d-flex ">
                         <strong class="m-0">يقيم في : </strong>
@@ -90,7 +90,7 @@
                                     <div class="my-3">
                                         <h4 class="text-info"> البوم الصور</h4>
                                         <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
-                                        <app-photo-editor [photos]="user.photos"></app-photo-editor>
+                                        <app-photo-editor (getMemberPhotoChange)="updateMainPhto($event)"  [photos]="user.photos"></app-photo-editor>
                                     </div>
                                 </tab>
 

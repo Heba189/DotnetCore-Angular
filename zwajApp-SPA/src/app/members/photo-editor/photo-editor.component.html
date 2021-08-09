@@ -5,8 +5,8 @@
     align-items: center;" class="col-sm-2 text-center" *ngFor="let photo of photos">
         <img src="{{photo.url}}" class="img-thumbnail" alt="">
         <div class="row text-center d-flex ">
-            <button style="width: fit-content;" type="button" class="btn btn-sm btn-outline-success btn-down"><strong>أساسية</strong></button>
-            <button  style="width: fit-content;"  type="button" class="btn btn-sm btn-outline-danger btn-down"><i class="fa fa-trash-o"></i></button>
+            <button [ngClass]="photo.isMain?'btn btn-sm btn-success btn-down':'btn btn-sm btn-outline-success btn-down'" [disabled]="photo.isMain" (click)="setMainPhoto(photo)" style="width: fit-content;" type="button" ><strong>أساسية</strong></button>
+            <button (click)="delete(photo.id)" [disabled]="photo.isMain"  style="width: fit-content;"  type="button" class="btn btn-sm btn-outline-danger btn-down"><i class="fa fa-trash-o"></i></button>
         </div>
 
     </div>
@@ -83,7 +83,7 @@
                 <button type="button" class="btn btn-warning mr-1" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                     <i class="fa fa-ban"></i> إلغاء الكل
                 </button>
-                <button type="button" class="btn btn-danger mr-1" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                <button type="button" class="btn btn-danger mr-1" (click)="uploader?.clearQueue()" [disabled]="!uploader.queue.length">
                     <i class="fa fa-trash-o"></i> حذف الكل
                 </button>
             </div>

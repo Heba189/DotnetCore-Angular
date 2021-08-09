@@ -9,17 +9,19 @@ using Microsoft.IdentityModel.Tokens;
 using zwajApp.API.Data;
 using zwajApp.API.Dtos;
 using zwajApp.API.Models;
-
+using AutoMapper;
 namespace zwajApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config,IMapper mapper)
         {
+           _mapper = mapper;
            _config = config;
             _repo = repo;
         }
@@ -64,8 +66,10 @@ namespace zwajApp.API.Controllers
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var user =_mapper.Map<UserForListDto>(userFromRepo);
             return Ok(new{
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
             // }
             // catch
