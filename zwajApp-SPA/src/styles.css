@@ -1,6 +1,6 @@
 @import "~alertifyjs/build/css/alertify.rtl.min.css";
 @import "~alertifyjs/build/css/themes/bootstrap.rtl.min.css";
-
+@import  "~ngx-bootstrap/datepicker/bs-datepicker.css";
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-v4-rtl/dist/css/bootstrap-rtl.css";
 @import "~font-awesome/css/font-awesome.min.css";

@@ -23,7 +23,7 @@ font-family:ToyorAljanah;font-size:2.25rem;font-weight:bolder" class="navbar-bra
   <div dropdown class="dropdown d-flex"*ngIf="loggedIn()" >
     <span *ngIf="loggedIn()">
       <!-- <img src="{{authService.currentUser.photoURL}}" alt="" srcset=""> -->
-      <img src="{{photoUrl}}" alt="" srcset="">
+      <img src="{{photoUrl  || 'assets/img/img1.jpg'}}" alt="" srcset="">
     </span>
 
     <a dropdownToggle  class="dropdown-toggle text-light nav-link px-2">

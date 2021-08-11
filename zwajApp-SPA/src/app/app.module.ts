@@ -16,7 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
@@ -33,7 +32,9 @@ import { MembersEditResolver } from './_resolvers/member-Edit.reslover';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -61,6 +62,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

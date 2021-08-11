@@ -2,7 +2,7 @@
 
           <div class="card border-info" style="max-width: 20rem;">
             <div class="card-header">
-              <img src="{{user.photoURL}}" class="card-img-top" alt="{{user.knownAs}}">
+              <img src="{{user.photoURL || 'assets/img/img1.jpg'}}" class="card-img-top" alt="{{user.knownAs}}">
               <ul dir="ltr" class="list-inline members-icons mb-0 mt-3 animate text-center">
                 <li class="list-inline-item">
                   <button [routerLink]="['/members/',user.id]" class="btn btn-sm btn-outline-danger">

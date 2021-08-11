@@ -31,13 +31,14 @@ namespace zwajApp.API.Controllers
             UserForRegisterDto.Username = UserForRegisterDto.Username.ToLower();
             if (await _repo.UserExists(UserForRegisterDto.Username))
                 return BadRequest("هذا المستخدم سجل من قبل.");
-            var userTocreate = new User
-            {
-                Username = UserForRegisterDto.Username
-            };
-
+            // var userTocreate = new User
+            // {
+            //     Username = UserForRegisterDto.Username
+            // };
+            var userTocreate = _mapper.Map<User>(UserForRegisterDto);
             var CreatedUser = await _repo.Register(userTocreate, UserForRegisterDto.Password);
-            return StatusCode(201);
+            var returnUser = _mapper.Map<UserForDetailsDto>(CreatedUser);    
+            return CreatedAtRoute("GetUser", new{Controller="Users",id=CreatedUser.Id},returnUser);
         }
 
         [HttpPost("login")]
