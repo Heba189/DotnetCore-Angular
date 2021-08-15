@@ -13,7 +13,13 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./members-details.component.css']
 })
 export class MembersDetailsComponent implements OnInit {
-user:any;
+user:User;
+created:string;
+age:string;
+lastActive:any;
+options:any={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+showIntro:boolean =true;
+showlook:boolean =true;
 galleryOptions: NgxGalleryOptions[]=[];
 galleryImages: NgxGalleryImage[]=[];
 
@@ -53,7 +59,12 @@ galleryImages: NgxGalleryImage[]=[];
  ];
 
   this.galleryImages = this.getImages();
-  }
+  this.created = new Date(this.user.created).toLocaleString('ar-EG', this.options).replace('،','');
+  this.age = this.user.age.toLocaleString('ar-EG');
+ 
+};
+
+
 
   getImages(){
     const imagesUrls=[];

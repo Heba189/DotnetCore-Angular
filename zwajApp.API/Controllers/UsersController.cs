@@ -7,9 +7,11 @@ using zwajApp.API.Data;
 using zwajApp.API.Dtos;
 using System.Security.Claims;
 using System;
+using zwajApp.API.Helpers;
 
 namespace zwajApp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

@@ -2,24 +2,24 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="card">
-                    <img alt="{{user.KnownAs}}" src="{{user.photoURL  || 'assets/img/img1.jpg'}}" class="card-img-top img-thumbnail">
+                    <img alt="{{user?.knownAs}}" src="{{user?.photoURL  || 'assets/img/img1.jpg'}}" class="card-img-top img-thumbnail">
                     <div class="card-body">
                         <div>
                             <strong>يقيم في :</strong>
-                            <p>{{user?.country}} ,{{user?.city}} </p>
+                            <p>{{user?.country}} - {{user?.city}} </p>
                            
                         </div>
                         <div>
                             <strong>العمر :</strong>
-                            <p>{{user?.age}} </p>
+                            <p>{{age}} </p>
                         </div>
                         <div>
                             <strong>اخر ظهور :</strong>
-                            <p>{{user?.lastActive}} </p>
+                            <p>{{user.lastActive | timePast  }} </p>
                         </div>
                         <div>
                             <strong>مشترك منذ:</strong>
-                            <p>{{user?.created}} </p>
+                            <p>{{created}} </p>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -31,14 +31,16 @@
             <div class="col-sm-8">
                     <div class="tab-Panel">        
                             <tabset class="member-tabset" >
-                                    <tab heading="أنا {{user.knownAs}}">
+                                    <tab heading="أنا {{user?.knownAs}}">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h4>أعرفك بنفسي</h4>
                                             </div>
                                             <div class="card-text mt-3 p-2">
-                                                <p>{{user.introduction}}</p>
+                                                <p #intro>{{user.introduction | slice:0:200}}</p>
                                             </div>
+                                            <button (click)="intro.innerText=user.introduction;showIntro=false " [hidden]="!showIntro" class="btn btn-info">اقرأ المزيد</button>
+                                            <button (click)="intro.innerText=user.introduction.slice(0,200);showIntro=true " [hidden]="showIntro" class="btn btn-danger">تصغير</button>
                                         </div>
                                         
                                         <div class="card mt-4">
@@ -46,8 +48,10 @@
                                                 <h4>أبحث عن</h4>
                                             </div>
                                             <div class="card-text mt-3 p-2">
-                                                <p>{{user.lookingFor}}</p>
+                                                <p #look>{{user.lookingFor | slice:0:200}}</p>
                                             </div>
+                                            <button (click)="look.innerText=user.lookingFor;showlook=false " [hidden]="!showlook" class="btn btn-info">اقرأ المزيد</button>
+                                            <button (click)="look.innerText=user.lookingFor.slice(0,200);showlook=true " [hidden]="showlook" class="btn btn-danger">تصغير</button>
                                         </div>
                             
                                         

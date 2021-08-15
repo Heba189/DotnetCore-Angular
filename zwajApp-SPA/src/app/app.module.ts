@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
+import {TimeAgoPipe} from 'time-ago-pipe';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
@@ -33,14 +34,19 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgPipesModule} from 'ngx-pipes';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgTimePastPipeModule } from 'ng-time-past-pipe';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
+
+//export class TimeAgoExtendsPipe extends TimeAgoPipe {}
+
 @NgModule({
-  declarations: [				
-    AppComponent,
+  declarations: [	
+   
+      AppComponent,
       NavbarComponent,
       HomeComponent,
       RegisterComponent,
@@ -51,12 +57,16 @@ export function tokenGetter() {
       MembersDetailsComponent,
       MemberEditComponent,
       PhotoEditorComponent
+       
    ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgTimePastPipeModule,
     HttpClientModule,
     FormsModule,
+    NgPipesModule,
     ReactiveFormsModule,
     FileUploadModule,
     BrowserAnimationsModule,
