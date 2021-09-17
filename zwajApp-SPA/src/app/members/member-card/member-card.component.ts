@@ -13,7 +13,7 @@ export class MemberCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user)
+    // console.log(this.user)
   }
 
 }

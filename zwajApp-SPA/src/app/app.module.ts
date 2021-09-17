@@ -37,6 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgPipesModule} from 'ngx-pipes';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgTimePastPipeModule } from 'ng-time-past-pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -61,6 +63,7 @@ export function tokenGetter() {
    ],
   
   imports: [
+  
     BrowserModule,
     AppRoutingModule,
     NgTimePastPipeModule,
@@ -74,6 +77,8 @@ export function tokenGetter() {
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
