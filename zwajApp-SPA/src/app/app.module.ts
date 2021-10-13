@@ -39,6 +39,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgTimePastPipeModule } from 'ng-time-past-pipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ListResolver } from './_resolvers/lists.resolver';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -89,7 +90,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     NgxGalleryModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver],
+  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver,ListResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

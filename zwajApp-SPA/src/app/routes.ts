@@ -7,6 +7,7 @@ import { MembersDetailsComponent } from './members/members-details/members-detai
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { ListResolver } from './_resolvers/lists.resolver';
 import { MembersEditResolver } from './_resolvers/member-Edit.reslover';
 import { MembersDetailsResolver } from './_resolvers/memberDetails.reslover';
 import { MembersListResolver } from './_resolvers/memberList.reslover';
@@ -29,7 +30,9 @@ export const appRoutes: Routes = [
               user:MembersDetailsResolver
             }},
            
-            {path:'lists',component:ListsComponent},
+            {path:'lists',component:ListsComponent, resolve:{
+              users:ListResolver
+            }},
             {path:'messages',component:MessagesComponent}
       ]  
     },

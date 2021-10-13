@@ -23,6 +23,9 @@ namespace zwajApp.API.Helpers
             CreateMap<Photo,PhotoForReturnDto>();
             CreateMap<PhotoCreateDto,Photo>();
             CreateMap<UserForRegisterDto,User>();
+            CreateMap<MessageForCreationDto,Message>();
+            CreateMap<MessageForCreationDto,Message>().ReverseMap();
+             CreateMap<Message,MessageToReturnDto>();
         }
     }
      

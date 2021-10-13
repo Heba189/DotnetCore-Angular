@@ -16,6 +16,49 @@ namespace zwajApp.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113");
 
+            modelBuilder.Entity("zwajApp.API.Models.Like", b =>
+                {
+                    b.Property<int>("LikeeId");
+
+                    b.Property<int>("LikerId");
+
+                    b.HasKey("LikeeId", "LikerId");
+
+                    b.HasIndex("LikerId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("zwajApp.API.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime?>("DateRead");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<DateTime>("MessageSent");
+
+                    b.Property<bool>("RecipientDeleted");
+
+                    b.Property<int>("RecipientId");
+
+                    b.Property<bool>("SenderDeleted");
+
+                    b.Property<int>("SenderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("zwajApp.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -86,6 +129,32 @@ namespace zwajApp.API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Values");
+                });
+
+            modelBuilder.Entity("zwajApp.API.Models.Like", b =>
+                {
+                    b.HasOne("zwajApp.API.Models.User", "Likee")
+                        .WithMany("Likers")
+                        .HasForeignKey("LikeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("zwajApp.API.Models.User", "Liker")
+                        .WithMany("Likees")
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("zwajApp.API.Models.Message", b =>
+                {
+                    b.HasOne("zwajApp.API.Models.User", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("zwajApp.API.Models.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("zwajApp.API.Models.Photo", b =>

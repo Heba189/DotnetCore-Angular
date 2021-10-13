@@ -8,6 +8,7 @@ using zwajApp.API.Dtos;
 using System.Security.Claims;
 using System;
 using zwajApp.API.Helpers;
+using zwajApp.API.Models;
 
 namespace zwajApp.API.Controllers
 {
@@ -25,7 +26,6 @@ namespace zwajApp.API.Controllers
             _repo = repo;
             _mapper = mapper;
         }
-        
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams){
             // var users =await _repo.GetUsers();
@@ -50,7 +50,6 @@ namespace zwajApp.API.Controllers
             var userToReturn = _mapper.Map<UserForDetailsDto>(user);
             return Ok(userToReturn);
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id,UserForUpdateDto userForUpdateDto)
         {
@@ -63,6 +62,27 @@ namespace zwajApp.API.Controllers
             }
 
             throw new Exception($"حدثت مشكلة في تعديل بيانات المشترك رقم {id}");
+        }
+        [HttpPost("{id}/like/{recipientId}")]
+        public async Task<IActionResult> LikeUser( int id , int recipientId )
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            return Unauthorized();
+            var like = await _repo.GetLike(id,recipientId);
+            if(like != null)
+            return BadRequest("لقد قمت بالاعجاب بهذا المشترك من قبل");
+            if(await _repo.GetUser(recipientId) == null)
+                return NotFound();
+                like = new Like{
+                    LikerId =id,
+                    LikeeId =recipientId
+                };
+                _repo.Add<Like>(like);
+                if(await _repo.saveAll())
+                return Ok();
+                return BadRequest("فشل في الاعجاب");
+            
+          
         }
 }
 }

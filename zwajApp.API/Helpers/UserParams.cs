@@ -20,5 +20,8 @@ namespace zwajApp.API.Helpers
         public int MaxAge {get;set;} =99;
         public string orderBy{get;set;}
 
+        public bool Likees {get;set;} =false;
+        public bool likers {get;set;} =false;
+
     }
 }

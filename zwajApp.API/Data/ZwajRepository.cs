@@ -27,9 +27,46 @@ namespace zwajApp.API.Data
             _context.Remove(entity);
         }
 
+        public Task<IEnumerable<Message>> GetConversation(int userId, int RecipientId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Like> GetLike(int userId, int recipientId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(l => l.LikerId == userId && 
+            l.LikeeId == recipientId);
+        }
+
         public async Task<Photo> GetMainPhoto(int userId)
         {
             return await _context.Photos.Where(u => u.userId == userId).FirstOrDefaultAsync(p=> p.IsMain);
+        }
+
+        public async Task<Message> GetMessage(int id)
+        {
+            return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
+        {
+            var messages = _context.Messages.Include(m => m.Sender).ThenInclude(u => u.Photos)
+            .Include(m => m.Recipient).ThenInclude(u => u.Photos).AsQueryable();
+            switch (messageParams.MessageType)
+            {
+                case "Inbox":
+                messages = messages.Where(m => m.RecipientId == messageParams.userId);
+                break;
+
+                case "Outbox":
+                messages = messages.Where(m => m.SenderId == messageParams.userId);    
+                 break;
+                default:
+                messages = messages.Where(m => m.RecipientId == messageParams.userId && m.IsRead == false); 
+                break;
+            }
+            messages = messages.OrderByDescending(m => m.MessageSent);
+            return await PagedList<Message>.CreateAsync(messages,messageParams.PageNumber,messageParams.PageSize);
         }
 
         public async Task<Photo> GetPhoto(int id)
@@ -57,6 +94,14 @@ namespace zwajApp.API.Data
             var maxDob =DateTime.Today.AddYears(-userParams.MinAge);
             users = users.Where(u => u.DateofBirth >=minDob && u.DateofBirth <= maxDob);
         }
+       if(userParams.likers){
+           var userLikers =await GetUserLikes(userParams.userId ,userParams.likers);
+           users = users.Where(u => userLikers.Contains(u.Id));
+       }
+         if(userParams.Likees){
+           var userLikees =await GetUserLikes(userParams.userId ,userParams.likers);
+           users = users.Where(u => userLikees.Contains(u.Id));
+       }
           if(!string.IsNullOrEmpty(userParams.orderBy)){
             switch (userParams.orderBy)
             {
@@ -74,6 +119,17 @@ namespace zwajApp.API.Data
         public async Task<bool> saveAll()
         {
            return await _context.SaveChangesAsync() > 0;
+        }
+
+        private async Task<IEnumerable<int>> GetUserLikes(int id,bool Likers){
+            var user =await _context.Users.Include(u => u.Likers).Include(u => u.Likees).FirstOrDefaultAsync(u => u.Id == id);
+
+           if(Likers){
+               return user.Likers.Where(u => u.LikeeId == id).Select(l => l.LikerId);
+           }else{
+               return user.Likees.Where(u => u.LikerId == id).Select(l => l.LikeeId);
+           }   
+           
         }
         
     }
