@@ -12,7 +12,9 @@ export class AuthGuard implements CanActivate{
   
   canActivate(): boolean {
     if(this.authservice.loggedIn()){
+      this.authservice.hubConnection.stop()
       return true;
+
     }
     this.alertify.error("يجب تسجيل الدخول اولا");
     this.router.navigate(['']);

@@ -13,6 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor{
                     if(applicationError){
                         console.error(applicationError);
                         return throwError(applicationError);
+                        
                     }
                     //ModelState Errors
                     const serverError = error.error;

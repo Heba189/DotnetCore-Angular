@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { BehaviorSubject } from 'rxjs';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,14 @@ jwtHelper = new JwtHelperService();
 baseUrl=environment.apiUrl+'auth/';
 decodedToken :any;
 currentUser:User;
+
 photoUrl = new BehaviorSubject<string>('../../assets/img/img1.jpg');
 currentPhotoUrl = this.photoUrl.asObservable();
+
+unreadCount = new BehaviorSubject<string>('');
+latestUnreadCount = this.unreadCount.asObservable();
+hubConnection = new HubConnectionBuilder().withUrl("http://localhost:5001/chat").build();
+
 constructor(private http:HttpClient) { }
 
 login(model:any){

@@ -20,5 +20,6 @@ namespace zwajApp.API.Data
         Task<Message> GetMessage(int id);
         Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
         Task<IEnumerable<Message>> GetConversation(int userId,int RecipientId);
+        Task<int> GetUnreadMessagesForUser(int userId);
     }
 }

@@ -22,7 +22,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using zwajApp.API.Data;
 using zwajApp.API.Helpers;
-
+using zwajApp.API.Models;
 namespace zwajApp.API
 {
     public class Startup
@@ -45,7 +45,7 @@ namespace zwajApp.API
             });
             
             services.AddCors();
-           
+            services.AddSignalR();
             services.AddAutoMapper();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettins"));
             services.AddTransient<TrialData>();
@@ -96,7 +96,10 @@ namespace zwajApp.API
 
             //app.UseHttpsRedirection();
             trialData.TrialUsers();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+           app.UseSignalR(routes => {
+               routes.MapHub<ChatHub>("/chat");
+           });
             app.UseAuthentication();
             app.UseMvc();
         }

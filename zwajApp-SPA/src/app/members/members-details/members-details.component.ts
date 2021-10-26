@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { error } from 'protractor';
 import { User } from 'src/app/_models/user';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { UserService } from 'src/app/_services/user.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { AuthService } from 'src/app/_services/auth.service';
 
 
 @Component({
@@ -12,7 +14,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   templateUrl: './members-details.component.html',
   styleUrls: ['./members-details.component.css']
 })
-export class MembersDetailsComponent implements OnInit {
+export class MembersDetailsComponent implements OnInit ,AfterViewInit{
+@ViewChild('memberTabs') memberTabs?: TabsetComponent;
 user:User;
 created:string;
 age:string;
@@ -23,13 +26,19 @@ showlook:boolean =true;
 galleryOptions: NgxGalleryOptions[]=[];
 galleryImages: NgxGalleryImage[]=[];
 
-  constructor(public userService: UserService, private alertify: AlertifyService, private route:ActivatedRoute) { }
-
+  constructor(public userService: UserService, private alertify: AlertifyService, private route:ActivatedRoute,private authService:AuthService) { }
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe(params =>{
+      const selectedTab = params['tab'];
+      console.log(selectedTab)
+      this.memberTabs.tabs[selectedTab>0?selectedTab:0].active =true;
+    });
+  }
   ngOnInit(){
    // this.loadUser();
    this.route.data.subscribe(Date =>{
     this.user=  Date['user']
-   })
+   });
 
    
   this.galleryOptions = [
@@ -62,9 +71,15 @@ galleryImages: NgxGalleryImage[]=[];
   this.created = new Date(this.user.created).toLocaleString('ar-EG', this.options).replace('،','');
   this.age = this.user.age.toLocaleString('ar-EG');
  
+
+ 
 };
 
-
+selectTab(tabId: number) {
+  if (this.memberTabs?.tabs[tabId]) {
+    this.memberTabs.tabs[tabId].active = true;
+  }
+}
 
   getImages(){
     const imagesUrls=[];
@@ -76,6 +91,10 @@ galleryImages: NgxGalleryImage[]=[];
       })
     };
     return imagesUrls;
+  }
+
+  deSelect(){
+    this.authService.hubConnection.stop();
   }
   // loadUser(){
   //   this.userService.getUser(+this.route.snapshot.params['id']).subscribe(

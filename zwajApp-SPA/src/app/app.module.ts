@@ -40,6 +40,8 @@ import { NgTimePastPipeModule } from 'ng-time-past-pipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListResolver } from './_resolvers/lists.resolver';
+import { MessageResolver } from './_resolvers/message.resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -59,7 +61,8 @@ export function tokenGetter() {
       MemberCardComponent,
       MembersDetailsComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      MemberMessagesComponent
        
    ],
   
@@ -90,7 +93,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     NgxGalleryModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver,ListResolver],
+  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver,ListResolver,MessageResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

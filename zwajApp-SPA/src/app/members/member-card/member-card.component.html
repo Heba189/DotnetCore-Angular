@@ -15,7 +15,7 @@
                   </button>
                 </li>
                 <li class="list-inline-item">
-                  <button class="btn btn-sm btn-outline-danger">
+                  <button [routerLink]="['/members/',user.id]" [queryParams]="{tab:3}" class="btn btn-sm btn-outline-danger">
                     <i class="fa fa-envelope"></i>
                   </button>
                 </li>

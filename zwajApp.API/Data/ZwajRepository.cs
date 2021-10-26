@@ -27,9 +27,12 @@ namespace zwajApp.API.Data
             _context.Remove(entity);
         }
 
-        public Task<IEnumerable<Message>> GetConversation(int userId, int RecipientId)
+        public async Task<IEnumerable<Message>> GetConversation(int userId, int RecipientId)
         {
-            throw new NotImplementedException();
+           var messages = await _context.Messages.Include(m => m.Sender).ThenInclude(u => u.Photos)
+            .Include(m => m.Recipient).ThenInclude(u => u.Photos).Where(m => m.RecipientId == userId && m.SenderId == RecipientId && m.RecipientDeleted ==false || m.RecipientId == RecipientId && m.SenderDeleted == false &&m.SenderId == userId)
+            .OrderByDescending(m => m.MessageSent).ToListAsync();
+            return messages;
         }
 
         public async Task<Like> GetLike(int userId, int recipientId)
@@ -59,10 +62,15 @@ namespace zwajApp.API.Data
                 break;
 
                 case "Outbox":
-                messages = messages.Where(m => m.SenderId == messageParams.userId);    
+                messages = messages.Where(m => m.SenderId == messageParams.userId &&
+                m.RecipientDeleted == false
+                );    
                  break;
                 default:
-                messages = messages.Where(m => m.RecipientId == messageParams.userId && m.IsRead == false); 
+                messages = messages.Where(m => m.RecipientId == messageParams.userId && m.IsRead == false &&
+                m.RecipientDeleted == false &&
+                m.SenderDeleted == false
+                ); 
                 break;
             }
             messages = messages.OrderByDescending(m => m.MessageSent);
@@ -73,6 +81,14 @@ namespace zwajApp.API.Data
         {
             var photo =await _context.Photos.FirstOrDefaultAsync(p=>p.Id == id);
             return photo;
+        }
+
+        public async Task<int> GetUnreadMessagesForUser(int userId)
+        {
+            var messages = await _context.Messages.Where(m => m.IsRead == false && m.RecipientId == userId).ToListAsync();
+            var count = messages.Count();
+            return count;
+
         }
 
         public async Task<User> GetUser(int id)
