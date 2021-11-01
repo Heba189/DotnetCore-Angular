@@ -20,13 +20,17 @@ export class NavbarComponent implements OnInit {
   constructor(public userService:UserService,public authService:AuthService, private alertify:AlertifyService,private router:Router) { }
 
   ngOnInit() {
-    this.authService.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl = photoUrl)
-
-    this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(
+    this.authService.currentPhotoUrl.subscribe(
+    photoUrl=>this.photoUrl = photoUrl)
+    if(this.loggedIn){
+       this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(
       res => {this.authService.unreadCount.next(res.toString());
       this.authService.latestUnreadCount.subscribe(res => {this.count = res})
       }
-    )
+    );
+    this.getPaymentForUser();
+    }  
+   
 
     this.hubConnection = new HubConnectionBuilder().withUrl("http://localhost:5001/chat").build();
     this.hubConnection.start();
@@ -47,6 +51,7 @@ export class NavbarComponent implements OnInit {
       this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(res=>{
       this.authService.unreadCount.next(res.toString());
       this.authService.latestUnreadCount.subscribe(res=>{this.count=res;});
+      this.getPaymentForUser();
       });
     },
      error =>{this.alertify.error(error)},
@@ -66,12 +71,22 @@ export class NavbarComponent implements OnInit {
   loggedout(){
     localStorage.removeItem('token');
     this.authService.decodedToken = null;
-
+    this.authService.paid =false;
     localStorage.removeItem('user');
     this.authService.currentUser=null;
 
     this.alertify.message('تم الخروج');
     this.router.navigate(['/home']);
   
+  }
+  getPaymentForUser(){
+    this.userService.getpaymentForUser(this.authService.currentUser.id).subscribe(
+      res =>{
+        if(res !== null)
+        this.authService.paid =true;
+        else
+        this.authService.paid =false;
+      }
+    )
   }
 }

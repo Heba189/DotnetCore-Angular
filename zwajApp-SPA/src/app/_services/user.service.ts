@@ -103,6 +103,11 @@ baseUrl=environment.apiUrl+'users/';
   }
   DeleteMessage(id:number,userId:number){
     return this.http.post(this.baseUrl+userId+'/messages/'+id,{});
-
+  }
+  Charge(userId:number,stripeToken:string){
+    return this.http.post(this.baseUrl+userId+'/charge/'+stripeToken,{});
+  }
+  getpaymentForUser(userId:number){
+    return this.http.get(this.baseUrl+userId+'/payment');
   }
 }

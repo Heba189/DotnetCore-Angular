@@ -42,6 +42,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListResolver } from './_resolvers/lists.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { PaymentComponent } from './payment/payment.component';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -62,7 +63,8 @@ export function tokenGetter() {
       MembersDetailsComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      MemberMessagesComponent
+      MemberMessagesComponent,
+      PaymentComponent
        
    ],
   

@@ -59,6 +59,30 @@ namespace zwajApp.API.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("zwajApp.API.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Amount");
+
+                    b.Property<string>("Currency");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsPaid");
+
+                    b.Property<DateTime>("PaymentDate");
+
+                    b.Property<string>("ReceiptUrl");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("zwajApp.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")

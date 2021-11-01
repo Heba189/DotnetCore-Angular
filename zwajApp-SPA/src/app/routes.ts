@@ -5,7 +5,10 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MembersDetailsComponent } from './members/members-details/members-details.component';
 import { MessagesComponent } from './messages/messages.component';
+import { PaymentComponent } from './payment/payment.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { ChargeGuard } from './_guards/charge.guard';
+import { MessagesGuard } from './_guards/messages.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { ListResolver } from './_resolvers/lists.resolver';
 import { MembersEditResolver } from './_resolvers/member-Edit.reslover';
@@ -36,7 +39,11 @@ export const appRoutes: Routes = [
             }},
             {path:'messages',component:MessagesComponent,resolve:{
               messages:MessageResolver
-            }}
+            },canActivate:[MessagesGuard]
+          },
+            {path:'charge',component:PaymentComponent ,canActivate:[ChargeGuard]}
+ 
+
       ]  
     },
     // {path:'home',component:HomeComponent},

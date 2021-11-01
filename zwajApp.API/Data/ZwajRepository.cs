@@ -77,6 +77,11 @@ namespace zwajApp.API.Data
             return await PagedList<Message>.CreateAsync(messages,messageParams.PageNumber,messageParams.PageSize);
         }
 
+        public async Task<Payment> GetPaymentForUser(int userId)
+        {
+            return await _context.Payments.FirstOrDefaultAsync(p => p.UserId == userId);
+        }
+
         public async Task<Photo> GetPhoto(int id)
         {
             var photo =await _context.Photos.FirstOrDefaultAsync(p=>p.Id == id);

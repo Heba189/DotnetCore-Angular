@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { error } from 'protractor';
 import { User } from 'src/app/_models/user';
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/_services/auth.service';
   templateUrl: './members-details.component.html',
   styleUrls: ['./members-details.component.css']
 })
-export class MembersDetailsComponent implements OnInit ,AfterViewInit{
+export class MembersDetailsComponent implements OnInit ,AfterViewInit ,AfterViewChecked{
 @ViewChild('memberTabs') memberTabs?: TabsetComponent;
 user:User;
 created:string;
@@ -25,8 +25,13 @@ showIntro:boolean =true;
 showlook:boolean =true;
 galleryOptions: NgxGalleryOptions[]=[];
 galleryImages: NgxGalleryImage[]=[];
-
+paid:boolean = false;
   constructor(public userService: UserService, private alertify: AlertifyService, private route:ActivatedRoute,private authService:AuthService) { }
+  ngAfterViewChecked(): void {
+    setTimeout(() => {
+      this.paid = this.authService.paid;
+    }, 0);
+  }
   ngAfterViewInit() {
     this.route.queryParams.subscribe(params =>{
       const selectedTab = params['tab'];
@@ -36,6 +41,7 @@ galleryImages: NgxGalleryImage[]=[];
   }
   ngOnInit(){
    // this.loadUser();
+   this.paid = this.authService.paid;
    this.route.data.subscribe(Date =>{
     this.user=  Date['user']
    });

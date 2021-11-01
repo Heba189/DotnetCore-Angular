@@ -15,6 +15,8 @@ namespace Data
 
           public DbSet<Like> Likes { get; set; }
 
+          public DbSet<Payment> Payments { get; set; }  
+          
           public DbSet<Message> Messages { get; set; }  
           protected  override void OnModelCreating(ModelBuilder builder){
                 builder.Entity<Like>()

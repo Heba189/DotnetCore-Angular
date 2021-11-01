@@ -15,7 +15,7 @@ jwtHelper = new JwtHelperService();
 baseUrl=environment.apiUrl+'auth/';
 decodedToken :any;
 currentUser:User;
-
+paid:boolean=false;
 photoUrl = new BehaviorSubject<string>('../../assets/img/img1.jpg');
 currentPhotoUrl = this.photoUrl.asObservable();
 

@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using zwajApp.API.Data;
 using zwajApp.API.Helpers;
 using zwajApp.API.Models;
@@ -48,6 +49,7 @@ namespace zwajApp.API
             services.AddSignalR();
             services.AddAutoMapper();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettins"));
+            services.Configure<StripeSettings>(Configuration.GetSection("Srtipe"));
             services.AddTransient<TrialData>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IzwajRepository,ZwajRepository>();
@@ -72,8 +74,10 @@ namespace zwajApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,TrialData trialData)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Srtipe:Secretkey").Value);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
