@@ -15,7 +15,7 @@ using Stripe;
 namespace zwajApp.API.Controllers
 {
     [ServiceFilter(typeof(LogUserActivity))]
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -36,7 +36,7 @@ namespace zwajApp.API.Controllers
             // var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
             // return Ok(usersToReturn);
             var currentuserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await _repo.GetUser(currentuserId);
+            var userFromRepo = await _repo.GetUser(currentuserId,true);
              userParams.userId =currentuserId;
               
              if(string.IsNullOrEmpty(userParams.Gender)){
@@ -50,7 +50,8 @@ namespace zwajApp.API.Controllers
         }
         [HttpGet("{id}",Name ="GetUser")]
         public async Task<IActionResult> GetUser(int id){
-            var user =await _repo.GetUser(id);
+            var isCurrentUser =int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == id;
+            var user =await _repo.GetUser(id,isCurrentUser);
             var userToReturn = _mapper.Map<UserForDetailsDto>(user);
             return Ok(userToReturn);
         }
@@ -59,7 +60,7 @@ namespace zwajApp.API.Controllers
         {
             if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             return Unauthorized();
-            var userFromRepo =await _repo.GetUser(id);
+            var userFromRepo =await _repo.GetUser(id,true);
             _mapper.Map(userForUpdateDto,userFromRepo);
             if(await _repo.saveAll()){
                 return NoContent();
@@ -75,7 +76,7 @@ namespace zwajApp.API.Controllers
             var like = await _repo.GetLike(id,recipientId);
             if(like != null)
             return BadRequest("لقد قمت بالاعجاب بهذا المشترك من قبل");
-            if(await _repo.GetUser(recipientId) == null)
+            if(await _repo.GetUser(recipientId,false) == null)
                 return NotFound();
                 like = new Like{
                     LikerId =id,

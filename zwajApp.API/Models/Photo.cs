@@ -19,5 +19,7 @@ namespace zwajApp.API.Models
         public User User {get;set;}
 
         public int userId{get;set;}
+
+        public bool IsApproved{get;set;}
     }
 }

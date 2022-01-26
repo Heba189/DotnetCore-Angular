@@ -21,7 +21,8 @@ namespace zwajApp.API.Controllers
         }
         //Gete http://localhost:5000/api/values
         // GET api/values
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult>  GetValues()
         {
@@ -30,7 +31,8 @@ namespace zwajApp.API.Controllers
         }
 
         // GET api/values/5
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles ="Member")]
         [HttpGet("{id}")]
         public async Task<IActionResult>  GetValues(int id)
         {

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
@@ -41,7 +42,9 @@ export const appRoutes: Routes = [
               messages:MessageResolver
             },canActivate:[MessagesGuard]
           },
-            {path:'charge',component:PaymentComponent ,canActivate:[ChargeGuard]}
+            {path:'charge',component:PaymentComponent ,canActivate:[ChargeGuard]},
+            {path:'admin',component:AdminPanelComponent ,data:{roles:['Admin','Moderator']}}
+
  
 
       ]  

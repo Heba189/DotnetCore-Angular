@@ -43,6 +43,13 @@ import { ListResolver } from './_resolvers/lists.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { PaymentComponent } from './payment/payment.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -64,7 +71,12 @@ export function tokenGetter() {
       MemberEditComponent,
       PhotoEditorComponent,
       MemberMessagesComponent,
-      PaymentComponent
+      PaymentComponent,
+      AdminPanelComponent,
+      HasRoleDirective,
+      UserManagementComponent,
+      PhotoManagementComponent,
+      RolesModalComponent
        
    ],
   
@@ -93,9 +105,12 @@ export function tokenGetter() {
       },
     }),
     TabsModule.forRoot(),
+    ModalModule.forRoot(),
     NgxGalleryModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver,ListResolver,MessageResolver],
+  providers: [AuthService, ErrorInterceptorProvider,AlertifyService,AuthGuard,PreventUnsavedChangesGuard,UserService,MembersDetailsResolver,MembersListResolver,MembersEditResolver,ListResolver,MessageResolver,
+    AdminService],
+  entryComponents:[RolesModalComponent],  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,7 +10,18 @@ import { AuthService } from '../_services/auth.service';
 export class AuthGuard implements CanActivate{
   constructor(private authservice:AuthService,private router:Router,private alertify:AlertifyService) {}
   
-  canActivate(): boolean {
+  canActivate(next:ActivatedRouteSnapshot): boolean {
+    const roles = next.firstChild.data['roles'] as Array<string>;
+    if(roles){
+      const match = this.authservice.roleMatch(roles);
+      if(match){
+        return true;
+      }else{
+        this.router.navigate(['members']);
+        this.alertify.error("غير مسموح لك بالدخول");
+      }
+    }
+
     if(this.authservice.loggedIn()){
       this.authservice.hubConnection.stop()
       return true;

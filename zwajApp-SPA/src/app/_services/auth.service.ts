@@ -57,4 +57,15 @@ loggedIn(){
       return false;
     }
 }
+roleMatch(AllowedRoles:Array<string>):boolean{
+  let isMatch =false;
+  const userRoles = this.decodedToken.role as Array<String>;
+  AllowedRoles.forEach(el =>{
+    if(userRoles.includes(el)){
+      isMatch =true;
+      return;
+    }
+  });
+  return isMatch;
+}
 }
